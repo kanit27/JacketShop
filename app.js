@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-// const userModel = require("./models/user");
-// const postModel = require("./models/post");
+const db = require("./config/mongoose-connnection");
+const ownersRouter = require("./routes/ownersRouter");
+const usersRouter = require("./routes/usersRouter");
+const productsRouter = require("./routes/productsRouter");
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -14,9 +16,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Hellow");
-});
+app.use("/owners", ownersRouter);
+app.use("/users", usersRouter);
+app.use("/products", productsRouter);
 
 
 app.listen(3000);
