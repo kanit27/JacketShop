@@ -20,6 +20,39 @@ Jacket Store is a full-stack e-commerce web application for purchasing jackets. 
 - **Environment Variables**: dotenv for managing sensitive keys
 - **Middleware**: Custom middleware for user authentication
 
+## Installation
+
+To set up and run the Jacket Store application locally, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/jacket-store.git
+   cd jacket-store
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   Create a `.env` file in the root directory and add the following:
+   ```
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   MONGO_URI=your_mongodb_connection_string
+   SESSION_SECRET=your_session_secret
+   ```
+
+4. Start the server:
+   ```bash
+   npm start
+   ```
+
+5. Open the application in your browser:
+   ```
+   http://localhost:3000
+   ```
+
 ## Folder Structure
 
 ```
