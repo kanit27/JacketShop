@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Product - JacketAdmin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-50">
+    <% if (success.length > 0) { %>
+    <div
+      class="absolute top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-5 py-2 rounded-lg z-50"
+    >
+      <%= success %>
+    </div>
+    <% } %>
+
+    <!-- Sidebar -->
+    <div class="flex h-screen">
+      <div class="w-64 bg-white h-screen shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-gray-800">JacketAdmin</h1>
+        <nav class="mt-6">
+          <a
+            href="/owners/dashboard"
+            class="block px-6 py-3 text-gray-600 hover:bg-gray-100"
+            >Dashboard</a
+          >
+          <a
+            href="/owners/products-page"
+            class="block px-6 py-3 text-gray-600 hover:bg-gray-100"
+            >Products</a
+          >
+          <a
+            href="/owners/orders-page"
+            class="block px-6 py-3 text-gray-600 hover:bg-gray-100"
+            >Orders</a
+          >
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">
+          Create New Product
+        </h1>
+
+        <!-- Form -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <form
+            class="space-y-6"
+            method="POST"
+            action="/products/create-product/create"
+            enctype="multipart/form-data"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Product Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter product name"
+                  oninput="previewProduct()"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Discount (%)</label
+                >
+                <input
+                  type="number"
+                  id="discount"
+                  name="discount"
+                  min="0"
+                  max="100"
+                  step="0.01"
+                  class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter discount percentage"
+                  oninput="previewProduct()"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Price ($)</label
+                >
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  required
+                  min="0"
+                  step="0.01"
+                  class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter price"
+                  oninput="previewProduct()"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Stock Quantity</label
+                >
+                <input
+                  type="number"
+                  name="quantity"
+                  required
+                  min="0"
+                  class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter stock quantity"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Size</label
+                >
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="size"
+                      value="XS"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                      onchange="previewProduct()"
+                    />
+                    <span class="ml-2 text-gray-700">XS</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="size"
+                      value="S"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                      onchange="previewProduct()"
+                    />
+                    <span class="ml-2 text-gray-700">S</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="size"
+                      value="M"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                      onchange="previewProduct()"
+                    />
+                    <span class="ml-2 text-gray-700">M</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="size"
+                      value="L"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                      onchange="previewProduct()"
+                    />
+                    <span class="ml-2 text-gray-700">L</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="size"
+                      value="XL"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                      onchange="previewProduct()"
+                    />
+                    <span class="ml-2 text-gray-700">XL</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="size"
+                      value="XXL"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                      onchange="previewProduct()"
+                    />
+                    <span class="ml-2 text-gray-700">XXL</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Color</label
+                >
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="color"
+                      value="red"
+                      class="form-checkbox text-red-600 border-gray-300 rounded focus:ring-red-500"
+                    />
+                    <span class="ml-2 text-gray-700">Red</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="color"
+                      value="blue"
+                      class="form-checkbox text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <span class="ml-2 text-gray-700">Blue</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="color"
+                      value="green"
+                      class="form-checkbox text-green-600 border-gray-300 rounded focus:ring-green-500"
+                    />
+                    <span class="ml-2 text-gray-700">Green</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="color"
+                      value="black"
+                      class="form-checkbox text-black border-gray-300 rounded focus:ring-black"
+                    />
+                    <span class="ml-2 text-gray-700">Black</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Description</label
+                >
+                <textarea
+                  name="description"
+                  rows="4"
+                  class="w-full resize-none p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter product description"
+                ></textarea>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Category</label
+                >
+
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="category"
+                      value="Bomber"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Bomber</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="category"
+                      value="Oversize"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Oversize</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="category"
+                      value="Denim"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Denim</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="category"
+                      value="Leather"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Leather</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="category"
+                      value="Puffer"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Puffer</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="category"
+                      value="Biker"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Biker</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="category"
+                      value="Quilted"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Quilted</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="category"
+                      value="Winter"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Winter</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Material</label
+                >
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="material"
+                      value="Cotton"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Cotton</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="material"
+                      value="Leather"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Leather</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="material"
+                      value="Denim"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Denim</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="material"
+                      value="Polyester"
+                      class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span class="ml-2 text-gray-700">Polyester</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Specific Text</label
+              >
+              <input
+                type="text"
+                name="specific"
+                class="w-1/2 p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                placeholder="Enter specific text"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Product Images</label
+              >
+              <div class="space-y-2">
+                <div>
+                  <label
+                    for="image"
+                    class="block text-sm font-medium text-gray-700"
+                    >Image </label
+                  >
+                  <input
+                    name="image"
+                    type="file"
+                    id="image"
+                    class="w-full p-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="image1"
+                    class="block text-sm font-medium text-gray-700"
+                    >Image 1</label
+                  >
+                  <input
+                    name="image1"
+                    type="file"
+                    id="image1"
+                    class="w-full p-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="image2"
+                    class="block text-sm font-medium text-gray-700"
+                    >Image 2</label
+                  >
+                  <input
+                    name="image2"
+                    type="file"
+                    id="image2"
+                    class="w-full p-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="image3"
+                    class="block text-sm font-medium text-gray-700"
+                    >Image 3</label
+                  >
+                  <input
+                    name="image3"
+                    type="file"
+                    id="image3"
+                    class="w-full p-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="image4"
+                    class="block text-sm font-medium text-gray-700"
+                    >Image 4</label
+                  >
+                  <input
+                    name="image4"
+                    type="file"
+                    id="image4"
+                    class="w-full p-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="image5"
+                    class="block text-sm font-medium text-gray-700"
+                    >Image 5</label
+                  >
+                  <input
+                    name="image5"
+                    type="file"
+                    id="image5"
+                    class="w-full p-2 border rounded-lg"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-end space-x-4">
+              <button
+                type="button"
+                class="px-4 py-2 border rounded-lg hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <input
+                type="submit"
+                class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                value="Create Product"
+              />
+              <!-- <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Create Product</button> -->
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

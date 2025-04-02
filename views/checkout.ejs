@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton+SC&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Urbanist";
+        overflow-x: hidden;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-50">
+    <div class="w-screen h-screen">
+      <nav
+        class="w-full flex justify-between items-center p-4 bg-gray-50 fixed top-0 left-0 z-50"
+      >
+        <div class="flex gap-2 items-center">
+          <a
+            style="font-family: Poppins"
+            class="tracking-tighter text-xl"
+            href="/shop"
+            >Shop
+          </a>
+        </div>
+        <div class="flex items-center">
+          <a class="text-3xl font-bold" href="/" style="font-family: Michroma"
+            >JACKETS</a
+          >
+        </div>
+        <div class="flex gap-8 items-center">
+          <a href="/wishlist"
+            ><i class="ri-heart-line text-xl cursor-pointer"></i
+          ></a>
+          <a href="/bag"
+            ><i class="text-xl cursor-pointer ri-shopping-bag-3-line"></i
+          ></a>
+          <a href="/users/register">
+            <i class="pr-4 ri-user-line text-xl cursor-pointer"></i>
+          </a>
+        </div>
+      </nav>
+      <div class="w-full fixed top-16 border-b pt-5 pl-20 pb-8 bg-gray-50 z-50">
+        <h1 class="text-5xl font-bold" style="font-family: Michroma">
+          CHECKOUT
+        </h1>
+      </div>
+      <div class="w-full h-full flex justify-between items-center">
+
+        <div
+          class="w-1/3 h-full border-r border-t bg-gray-50 px-8 pb-6 pt-6 z-40 fixed top-40 mt-1 left-0"
+        >
+          
+
+          <div class="w-full flex flex-col gap-0">
+            <div class="w-full">
+              <div class="w-full flex flex-col gap-4">
+                <h2 class="text-2xl mt-2" style="font-family: Urbanist">
+                  Order Summary
+                </h2>
+                <div
+                  class="w-full border-t border-b border-r border-l flex flex-col overflow-x-hidden h-96 overflow-y-auto"
+                >
+                  <% if (user.bag.length> 0) { %> <%
+                  user.bag.forEach(function(product){ %>
+                  <div
+                    class="w-full p-10 border-b flex flex-row items-start justify-between gap-4"
+                  >
+                    <div class="flex gap-4 items-center">
+                      <img
+                        src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+                        alt=""
+                        class="w-24 h-24 object-cover"
+                      />
+                      <div class="flex flex-col">
+                        <h2 class="text-2xl" style="font-family: Urbanist">
+                          <%= product.name %>
+                        </h2>
+                        <p class="text-sm" style="font-family: Urbanist">
+                          <%= product.category %>-<%= product.material %>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="flex relative pt-9 items-center gap-4">
+                      <div class="flex items-center gap-4">
+                        <button
+                          class="text-2xl text-black"
+                          onclick="decreaseQuantity()"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          id="quantityInput"
+                          class="w-8 bg-transparent border text-center"
+                          value="1"
+                        />
+                        <button
+                          class="text-2xl text-black"
+                          onclick="increaseQuantity()"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <div
+                        class="flex absolute bottom-20 -right-10 bg-red-500 cursor-pointer px-2 items-center gap-4"
+                      ></div>
+                    </div>
+                  </div>
+                  <% }) %> <% } else { %>
+                  <p class="text-gray-500 pt-10 pl-10 text-xl tracking-tight">
+                    your bag is empty
+                  </p>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full flex flex-col justify-end relative pt-20 gap-2">
+            <div class="w-full flex flex-col">
+              <div class="flex items-center justify-between gap-1">
+                <p
+                  class="text-lg text-medium tracking-tight"
+                  style="font-family: Urbanist"
+                >
+                  Order Value
+                </p>
+                <div class="tracking-tight text-lg" style="font-family: Lato">
+                  $99.99
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-1">
+                <p
+                  class="text-medium text-lg tracking-tight"
+                  style="font-family: Urbanist"
+                >
+                  Delivery
+                </p>
+                <div
+                  class="tracking-tight text-lg"
+                  style="font-family: Urbanist"
+                >
+                  Free
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-1">
+                <p
+                  class="text-medium text-lg tracking-tight"
+                  style="font-family: Urbanist"
+                >
+                  Discount
+                </p>
+                <div class="tracking-tight text-lg" style="font-family: Lato">
+                  $100
+                </div>
+              </div>
+              <div class="flex items-center mt-2 mb-2 justify-between gap-1">
+                <p
+                  class="text-xl tracking-tight text-2xl"
+                  style="font-family: Urbanist"
+                >
+                  Total
+                </p>
+                <div class="text-2xl tracking-tight" style="font-family: Lato">
+                  $99.99
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+        </div>
+
+        <div class="w-2/3 -z-20 absolute top-40 right-0 mt-1">
+          <div class="w-full flex flex-col flex-wrap gap-4">
+            <form action="">
+              <div class="w-full flex pt-4 pb-10 pl-32 flex-row gap-4">
+                <div class="w-full flex flex-col gap-8">
+                  <h2 class="text-xl text-gray-500 mt-8">
+                    Personal Information
+                  </h2>
+                  <div class="w-2/3 pl-5">
+                    <label class="text-2xl pl-5" style="font-family: Urbanist"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      class="w-full px-4 py-2 rounded-lg border border-gray-400 bg-transparent outline-none"
+                      placeholder="Ex: John Doe"
+                    />
+                  </div>
+                  <div class="w-2/3 pl-5">
+                    <label class="text-2xl pl-5" style="font-family: Urbanist"
+                      >Email</label
+                    >
+                    <input
+                      type="email"
+                      class="w-full px-4 py-2 rounded-lg border border-gray-400 bg-transparent outline-none"
+                      placeholder="Ex:xyz@gmail.com"
+                    />
+                  </div>
+                  <div class="w-2/3 pl-5">
+                    <label class="text-2xl pl-5" style="font-family: Urbanist"
+                      >Phone Number</label
+                    >
+                    <input
+                      type="text"
+                      class="w-full px-4 py-2 rounded-lg border border-gray-400 bg-transparent outline-none"
+                      placeholder="Ex: 1234567890"
+                    />
+                  </div>
+                </div>
+                <div class="flex flex-col gap-10 w-full">
+                  <h2 class="text-xl text-gray-500 mt-8">Shipping Address</h2>
+                  <div class="w-2/3 pl-5">
+                    <label class="text-2xl pl-5" style="font-family: Urbanist"
+                      >Address</label
+                    >
+                    <textarea
+                      class="w-full rounded-lg h-32 px-4 py-2 border border-gray-400 bg-transparent outline-none resize-none"
+                      name=""
+                      id=""
+                      placeholder="Ex: 123, Main Street, New York"
+                    ></textarea>
+                  </div>
+
+                  <div class="w-2/3 pl-5">
+                    <label class="text-2xl pl-5" style="font-family: Urbanist"
+                      >Zip Code</label
+                    >
+                    <input
+                      type="text"
+                      class="w-full px-8 rounded-lg py-2 border border-gray-400 bg-transparent outline-none"
+                      placeholder="Ex: New York"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <h2 class="text-2xl pl-28 mt-8">Payment Method</h2>
+
+            <div class="flex justify-center items-center min-h-screen">
+              
+
+                <!-- Right: Payment Form -->
+                <div class="w-2/3 p-8 rounded-r-lg">
+                  <!-- Apple Pay Button -->
+                  <a href=""
+                    class="w-full bg-black text-white py-3 rounded-lg font-semibold flex items-center justify-center mb-4"
+                  >
+                    <i class="ri-apple-line text-base pr-1 pb-1 font-thin" ></i>
+                    Apple Pay
+                </a>
+
+                  <p class="text-gray-500 text-sm text-center">
+                    Or pay another way
+                  </p>
+
+                  <!-- Card Payment Form -->
+                  <form id="payment-form" class="mt-4"  action="/pay" method="POST">
+                    <label class="block text-gray-600 text-sm font-semibold"
+                      >Email</label
+                    >
+                    <input
+                      type="email"
+                      class="w-full px-4 py-2 mt-1 border rounded-lg focus:border-blue-500 outline-none"
+                      placeholder="Email"
+                    />
+
+                    <label
+                      class="block text-gray-600 text-sm font-semibold mt-4"
+                      >Payment method</label
+                    >
+                    <div class="flex gap-2 mt-2">
+                        <button
+                        class="border px-4 py-2 rounded-lg flex items-center gap-2 focus:border-blue-500"
+                        >
+                        <span class="w-4 h-4 bg-black rounded-full"></span> Card
+                        </button>
+                        <button
+                        class="border px-4 py-2 rounded-lg flex items-center gap-2 focus:border-blue-500"
+                        >
+                        Klarna
+                        </button>
+                        <button
+                        class="border px-4 py-2 rounded-lg flex items-center gap-2 focus:border-blue-500"
+                        >
+                        Affirm
+                        </button>
+                        <button
+                        class="border px-4 py-2 rounded-lg flex items-center gap-2 focus:border-blue-500"
+                        >
+                        PayPal
+                        </button>
+                        <button
+                        class="border px-4 py-2 rounded-lg flex items-center gap-2 focus:border-blue-500"
+                        >
+                        Google Pay
+                        </button>
+                        <button
+                        class="border px-4 py-2 rounded-lg flex items-center gap-2 focus:border-blue-500"
+                        >
+                        Amazon Pay
+                        </button>
+                    </div>
+
+                    <label
+                      class="block text-gray-600 text-sm font-semibold mt-4"
+                      >Card Information</label
+                    >
+                    <div
+                      id="card-element"
+                      class="w-full px-4 py-2 mt-1 border rounded-lg focus:border-blue-500 outline-none"
+                    ></div>
+
+                    <label
+                      class="block text-gray-600 text-sm font-semibold mt-4"
+                      >Cardholder Name</label
+                    >
+                    <input
+                      type="text"
+                      class="w-full px-4 py-2 mt-1 border rounded-lg focus:border-blue-500 outline-none"
+                      placeholder="Full name on card"
+                    />
+
+                    <label
+                      class="block text-gray-600 text-sm font-semibold mt-4"
+                      >Country or Region</label
+                    >
+                    <select
+                      class="w-full px-4 py-2 mt-1 border rounded-lg focus:border-blue-500 outline-none"
+                    >
+                      <option>United States</option>
+                      <option>India</option>
+                      <option>United Kingdom</option>
+                    </select>
+
+                    <button
+                      type="submit"
+                      class="w-full mt-6 py-3 bg-black text-white rounded-lg font-semibold"
+                    >
+                      Pay
+                    </button>
+                  </form>
+
+                  <p class="text-gray-400 text-xs text-center mt-4">
+                    Powered by Stripe
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- <form id="payment-form" class="w-2/3 pl-28 mt-8 flex flex-col gap-4">
+              <div id="card-element" class="w-full px-4 py-2 rounded-lg border border-gray-400 bg-transparent outline-none"></div>
+              <button type="submit" class="w-full py-2 px-4 bg-black text-white rounded-lg hover:bg-gray-800 transition duration-300">Pay Now</button>
+              <p id="payment-message" class="text-red-500 mt-2"></p>
+            </form> -->
+
+            <script src="https://js.stripe.com/v3/"></script>
+            <script>
+              const stripe = Stripe("your_publishable_key");
+              const elements = stripe.elements();
+              const cardElement = elements.create("card");
+              cardElement.mount("#card-element");
+
+              document
+                .getElementById("payment-form")
+                .addEventListener("submit", async (e) => {
+                  e.preventDefault();
+
+                  // Request a payment intent from the backend
+                  const response = await fetch("/api/payment/pay", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ amount: 100 }), // Example: Charging $100
+                  });
+
+                  const { clientSecret } = await response.json();
+
+                  // Process payment using Stripe
+                  const { error, paymentIntent } =
+                    await stripe.confirmCardPayment(clientSecret, {
+                      payment_method: { card: cardElement },
+                    });
+
+                  if (error) {
+                    document.getElementById("payment-message").textContent =
+                      error.message;
+                  } else if (paymentIntent.status === "succeeded") {
+                    document.getElementById("payment-message").textContent =
+                      "Payment successful!";
+                  }
+                });
+            </script>
+
+            <!-- Repeat the above block for other items -->
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"></script>
+
+    <script>
+      function decreaseQuantity() {
+        const quantityInput = document.getElementById("quantityInput");
+        let currentValue = parseInt(quantityInput.value, 10);
+        if (currentValue > 1) {
+          quantityInput.value = currentValue - 1;
+        }
+      }
+
+      function increaseQuantity() {
+        const quantityInput = document.getElementById("quantityInput");
+        let currentValue = parseInt(quantityInput.value, 10);
+        quantityInput.value = currentValue + 1;
+      }
+
+      function toggleDropdown(menuId, iconId) {
+        // Select all elements with the class 'hidden'
+        document.querySelectorAll(".hidden").forEach((menu) => {
+          // If the current menu's ID is not equal to the provided menuId
+          if (menu.id !== menuId) {
+            // Add the 'hidden' class to hide the menu
+            menu.classList.add("hidden");
+          }
+        });
+
+        // Toggle the 'hidden' class on the element with the provided menuId
+        const menuElement = document.getElementById(menuId);
+        menuElement.classList.toggle("hidden");
+
+        // Toggle the icon
+        const iconElement = document.getElementById(iconId);
+        if (menuElement.classList.contains("hidden")) {
+          iconElement.classList.remove("ri-arrow-up-s-line");
+          iconElement.classList.add("ri-arrow-down-s-line");
+        } else {
+          iconElement.classList.remove("ri-arrow-down-s-line");
+          iconElement.classList.add("ri-arrow-up-s-line");
+        }
+      }
+
+      function showPopup() {
+        document.getElementById("popup").classList.remove("hidden");
+      }
+
+      function hidePopup() {
+        document.getElementById("popup").classList.add("hidden");
+      }
+    </script>
+  </body>
+</html>

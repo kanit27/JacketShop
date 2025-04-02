@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Confirmation</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Thank You for Your Purchase!</h1>
+        <p>Your product has been successfully confirmed.</p>
+
+        <h2>Shipping Details</h2>
+        <ul>
+            <li><strong>Name:</strong> <%= shippingDetails.name %></li>
+            <li><strong>Address:</strong> <%= shippingDetails.address %></li>
+            <li><strong>City:</strong> <%= shippingDetails.city %></li>
+            <li><strong>Postal Code:</strong> <%= shippingDetails.postalCode %></li>
+            <li><strong>Country:</strong> <%= shippingDetails.country %></li>
+        </ul>
+
+        <h2>Order Summary</h2>
+        <ul>
+            <li><strong>Product Name:</strong> <%= product.name %></li>
+            <li><strong>Quantity:</strong> <%= product.quantity %></li>
+            <li><strong>Total Price:</strong> $<%= product.totalPrice %></li>
+        </ul>
+
+        <p>If you have any questions, feel free to <a href="/contact">contact us</a>.</p>
+    </div>
+</body>
+</html></html>

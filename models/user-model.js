@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const userSchema = new Schema ({
+const userModel = new Schema ({
     fullname: String,
     email: String,
     password: String,
-    cart: {
-        type: Array,
-        default: []
-    },
+    wishlist: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'product'
+    }],
+    bag: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'product'
+    }],
     orders:{
         type: Array,
         default: []
@@ -22,4 +26,4 @@ const userSchema = new Schema ({
     phone: String
 });
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('user', userModel);

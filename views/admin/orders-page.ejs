@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - JacketAdmin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/lucide-icons/dist/umd/lucide-icons.js" rel="stylesheet">
+    <script src="https://unpkg.com/lucide-icons" defer></script>
+</head>
+<body>
+    <div class="flex h-screen bg-gray-100">
+        <div class="w-64 bg-white h-screen shadow-lg p-6">
+            <h1 class="text-2xl font-bold text-gray-800">JacketAdmin</h1>
+            <nav class="mt-6">
+                <a href="/owners/dashboard" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Dashboard</a>
+                <a href="/owners/products-page" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Products</a>
+                <a href="/owners/orders-page" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Orders</a>
+            </nav>
+        </div>
+        <main class="flex-1 overflow-y-auto p-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Orders</h1>
+            <div class="bg-white rounded-lg shadow p-6">
+                <table class="w-full">
+                    <thead>
+                        <tr class="text-left text-gray-500">
+                            <th class="pb-4">Order ID</th>
+                            <th class="pb-4">Customer</th>
+                            <th class="pb-4">Products</th>
+                            <th class="pb-4">Total</th>
+                            <th class="pb-4">Date</th>
+                            <th class="pb-4">Status</th>
+                            <th class="pb-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-t">
+                            <td class="py-4">#12345</td>
+                            <td class="py-4">John Doe</td>
+                            <td class="py-4">Leather Jacket</td>
+                            <td class="py-4">$199.99</td>
+                            <td class="py-4">2024-02-16</td>
+                            <td class="py-4">
+                                <span class="px-3 py-1 text-sm rounded-full bg-green-100 text-green-800">Shipped</span>
+                            </td>
+                            <td class="py-4">
+                                <button class="text-indigo-600 hover:text-indigo-800">View Details</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

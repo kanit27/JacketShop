@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton+SC&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      .swiper {
+        width: 100vh;
+        height: auto;
+      }
+      .slider {
+        position: relative;
+        width: 100%;
+        height: 20vh;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+
+      /* Scrolling Text */
+      .slider-track {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 100px; /* Space between text */
+        animation: scroll 10s linear infinite;
+      }
+
+      /* Individual text block */
+      .slider-track span {
+        font-size: 8rem;
+        font-weight: bold;
+
+        text-transform: uppercase;
+        font-family: "Anton SC";
+        color: black;
+      }
+
+      /* Animation */
+      @keyframes scroll {
+        from {
+          transform: translateX(-150%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="w-screen h-screen">
+      <nav class="w-full flex justify-between items-center p-4 bg-gray-100 fixed top-0 left-0 z-50">
+        <div class="flex gap-2 items-center">
+          <a class="tracking-tighter text-xl" href="/shop">Shop </a>
+        </div>
+        <div class="flex items-center">
+          <a class="text-3xl font-bold" href="/" style="font-family: Michroma;">JACKETS</a>
+        </div>
+        <div class=" flex gap-8 items-center">
+          <a href="/wishlist"><i class="ri-heart-line text-xl cursor-pointer"></i></a>
+          <a href="/bag"><i class=" text-xl cursor-pointer ri-shopping-bag-3-line"></i></a>
+          <a href="/users/register">
+            <i class="pr-4 ri-user-line text-xl cursor-pointer"></i>
+          </a>
+          <a href="/users/logout">Logout</a>
+        </div>
+      </nav>
+      <div class="w-full h-full relative bg-gray-100">
+        
+        <div class="w-full h-full z-30 flex flex-col items-center justify-center pt-20">
+          <h1 class="text-3xl z-30 tracking-tighter">
+            <span class="text-gray-400"
+              ><span class="text-black">Designed</span> to fit you.</span
+            >
+            <span class="text-gray-400"
+              ><span class="text-black">Tailored</span> to perfection.</span
+            >
+          </h1>
+          <h1 class="text-6xl z-30 uppercase" style="font-family: Anton SC">
+            <span
+              class="bg-gradient-to-r from-green-400 via-blue-500 to-indigo-500 text-transparent bg-clip-text"
+              >crafted to match your personality</span
+            >
+          </h1>
+        </div>
+        <div class="w-full h-full">
+          <img
+            class="w-40 absolute top-20 left-32 transform -rotate-12"
+            src="https://static.zara.net/assets/public/f5a5/6ff2/309843439936/77f1b604f9a2/00621400427-e1/00621400427-e1.jpg?ts=1738833390327&w=750"
+            alt=""
+          />
+          <img
+            class="w-40 absolute top-20 right-20 transform rotate-12"
+            src="https://static.zara.net/assets/public/4a26/6ccb/a7ca42088a71/17edae2a0bd1/05070275606-e1/05070275606-e1.jpg?ts=1738859752040&w=750"
+            alt=""
+          />
+          <img
+            class="w-40 absolute bottom-20 left-40 transform rotate-6"
+            src="https://static.zara.net/assets/public/052a/fefa/7a7347ec85ec/88c9d192defb/04303474700-e1/04303474700-e1.jpg?ts=1738858686569&w=750"
+            alt=""
+          />
+          <img
+            class="w-40 absolute bottom-48 right-1/3 transform -rotate-12"
+            src="https://static.zara.net/assets/public/3150/545c/ebde49fb882f/2089cd10cac6/04575330710-e1/04575330710-e1.jpg?ts=1738169467986&w=750"
+            alt=""
+          />
+          <img
+            class="w-40 absolute top-40 right-1/2 mr-20 transform "
+            src="https://static.zara.net/assets/public/60d4/3614/25d6441597b6/60e1607f432a/08281290702-e1/08281290702-e1.jpg?ts=1730628868190&w=750"
+            alt=""
+          />
+          <img
+            class="w-40 absolute bottom-20 right-24 transform -rotate-15"
+            src="https://static.zara.net/assets/public/41c4/a16d/90024766bbd9/acf871978e3f/03991443405-e1/03991443405-e1.jpg?ts=1738858681976&w=750"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="w-full px-20 py-60 bg-gray-100 h-1/2">
+        <h1
+          class="text-5xl font-black uppercase tracking-tighter"
+          style="font-family: Michroma"
+        >
+          Dripping in discounts
+        </h1>
+        <p class="uppercase text-4xl mb-12 text-gray-400 tracking-tighter">
+          shop the
+          <span
+            class="text-8xl font-extrabold bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"
+            style="font-family: Michroma"
+            >LIMITED EDITION</span
+          >
+          , pay less!
+        </p>
+        <a href="/shop" class="inline-block px-6 py-3 text-gray-50 text-lg bg-black cursor-pointer"
+          >Explore Now <i class="px-3 ri-arrow-right-long-line"></i>
+        </a>
+      </div>
+      <div class="flex justify-between items-center w-full h-full bg-gray-100">
+        <div class="px-20 flex flex-col justify-between items-center w-1/2 h-1/2">
+          <h1 class="text-5xl" style="font-family: Anton SC">
+            New <br />
+            <span class="text-8xl">Arrivals</span>
+          </h1>
+          <a
+            class="text-xl inline-block px-6 py-3 text-gray-50 text-lg bg-gradient-to-r from-purple-500 to-pink-400"
+            href="/shop"
+            >Shop Now <i class="px-3 ri-arrow-right-long-line"></i
+          ></a>
+        </div>
+        <div class="w-full flex justify-center items-center gap-4 h-1/2 w-1/2 object-cover mr-20">
+          <div class="w-1/3 h-full cursor-pointer">
+            <img src="https://image.hm.com/assets/hm/f3/24/f32434322066047e894b08d78e1fdbf7ed53d0cf.jpg?imwidth=1260" alt="">
+          </div>
+          <div class="w-1/3 h-full cursor-pointer">
+            <img src="https://image.hm.com/assets/hm/33/d5/33d59e145eb86f59b23dc4f3058cc33096b36fea.jpg?imwidth=1260" alt="">
+          </div>
+          <div class="w-1/3 h-full cursor-pointer">
+            <img src="https://image.hm.com/assets/hm/32/d9/32d91c1a845f994e1e07fa10748e558cdff9808c.jpg?imwidth=1260" alt="">
+          </div>
+          
+        </div>  
+      </div>
+      
+      <div class="w-full h-full relative bg-gray-100">
+        <div class="w-1/3 object-cover absolute top-32 left-60">
+          <img
+            src="https://i.pinimg.com/736x/b2/1e/29/b21e29b2d35b89da48ff6c3ff2313e4b.jpg"
+            alt=""
+          />
+        </div>
+        <div class="w-96 object-cover absolute bottom-1/2 right-20">
+          <img
+            src="https://i.pinimg.com/736x/73/4a/9e/734a9e5b03fbebac37927aeef0a18f50.jpg"
+            alt=""
+          />
+        </div>
+        <p
+          class="tracking-tighter absolute bottom-1/2 right-1/4 w-1/5 text-xl text-right"
+        >
+          Our premium jackets offer the perfect balance of
+          <span class="italic text-gray-400"
+            >comfort, durability, and sophistication.
+          </span>
+        </p>
+        <p
+          class="tracking-tighter absolute text-black top-32 right-1/3 w-96 text-3xl"
+        >
+          From city streets to mountain peaks, our jackets are built to keep up
+          with your lifestyle. <br />
+          <span class="text-gray-400"
+            >Adventure-ready, yet effortlessly stylish.</span
+          >
+        </p>
+        <p
+          class="tracking-tighter absolute bottom-56 left-1/4 text-right text-gray-100 w-96 text-2xl"
+        >
+          Handpicked fabrics, flawless tailoring, cutting-edge design—because
+          you deserve more than just a
+          <span
+            class="bg-gradient-to-br from-yellow-300 via-yellow-500 to-yellow-700 bg-clip-text text-transparent text-4xl"
+            style="font-family: Anton SC"
+            >JACKET</span
+          >.
+        </p>
+      </div>
+
+      <div
+        class="slider bg-gradient-to-br from-green-400 to-blue-500 "
+      >
+        <div class="slider-track" id="sliderTrack">
+          <!-- JavaScript will duplicate these spans -->
+          <span>CONTACT US<i class="ri-arrow-right-up-line"></i></span>
+          <span>CONTACT US<i class="ri-arrow-right-up-line"></i></span>
+          <span>CONTACT US<i class="ri-arrow-right-up-line"></i></span>
+          <span>CONTACT US<i class="ri-arrow-right-up-line"></i></span>
+          <span>CONTACT US<i class="ri-arrow-right-up-line"></i></span>
+          <span>CONTACT US<i class="ri-arrow-right-up-line"></i></span>
+          <span>CONTACT US<i class="ri-arrow-right-up-line"></i></span>
+          <span>CONTACT US<i class="ri-arrow-right-up-line"></i></span>
+        </div>
+      </div>
+
+      <footer class="w-full h-1/2 pt-20 bg-gray-100">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-3xl tracking-tighter w-1/2 pl-20">
+              Our collection brings together classic designs with modern
+              innovation. We don’t just sell jackets; we create pieces that
+              stand the test of time. <br />
+              Because great style never fades.
+            </p>
+          </div>
+          <div class="w-1/2 h-full flex flex-col gap-40 items-center pr-20">
+            <div class="w-full ">
+              <h3 class="w-full text-4xl tracking-tighter  uppercase" style="font-family: Anton SC;">Subscribe <br> <span class="text-gray-400 text-6xl">Our Newsletter</span> </h3>
+              <div class="mt-8 flex">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  class="w-full px-3 py-2 rounded-xl bg-gray-100 text-black border border-gray-500 focus:outline-none"
+                />
+                <button
+                  class="bg-black ml-3 px-4 py-2 rounded-2xl text-white"
+                >
+                <i class="ri-send-plane-fill"></i>
+                </button>
+              </div>
+              
+            </div>
+            <div class="pl-72">
+              <a href="#" class="text-4xl pr-5 text-blue-700"><i class="ri-facebook-circle-fill"></i></a>
+              <a href="#" class="text-4xl pr-5 bg-gradient-to-br from-yellow-500 via-red-500 to-purple-500 bg-clip-text text-transparent"><i class="ri-instagram-fill"></i></a>
+              <a href="#" class="text-4xl pr-5 text-black"><i class="ri-twitter-fill"></i></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div class="w-full h-1/2 relative bg-gray-100">
+        <div class="w-full h-full">
+          <h1
+            class="w-full h-full px-5 font-extrabold relative z-50"
+            style="font-family: Michroma; font-size: 17rem"
+          >
+            JACKETS
+          </h1>
+        </div>
+        <div class="w-full">
+          <img
+            class="w-20 absolute top-20 left-32 transform rotate-3 z-40"
+            src="https://image.hm.com/assets/hm/4c/8b/4c8bd1c57b2e43543a710deb9fe4a0a603e4ab4d.jpg?imwidth=1260"
+            alt=""
+          />
+          <img
+            class="w-20 absolute top-20 right-20 transform rotate-12 z-40"
+            src="https://image.hm.com/assets/hm/5e/11/5e11cfb206d554934c5c349d28a989c96c5ce28b.jpg?imwidth=657"
+            alt=""
+          />
+          <img
+            class="w-20 absolute bottom-20 left-40 transform -rotate-6 z-40"
+            src="https://image.hm.com/assets/hm/3c/60/3c60a1438eac2264550796ddd196f1f074884d9c.jpg?imwidth=1260"
+            alt=""
+          />
+          <img
+            class="w-20 absolute top-1/2 right-1/3 transform -rotate-12 z-40"
+            src="https://image.hm.com/assets/hm/a1/ae/a1ae4d7e6eafb9dfa9a618ce87bc1ffc8583655d.jpg?imwidth=657"
+            alt=""
+          />
+          <img
+            class="w-20 absolute top-20 right-1/2 transform rotate-3 z-40"
+            src="https://image.hm.com/assets/hm/5c/54/5c54e8cf35b80201f30c607b2572507f329919cc.jpg?imwidth=1260"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Duplicate text for smooth infinite effect
+      const sliderTrack = document.getElementById("sliderTrack");
+      const clone = sliderTrack.innerHTML;
+      sliderTrack.innerHTML += clone; // Duplicate the content
+    </script>
+  </body>
+</html>

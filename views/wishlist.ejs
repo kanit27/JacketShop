@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton+SC&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Urbanist";
+        overflow-x: hidden;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-50">
+    <div class="w-screen h-screen">
+      <nav
+        class="w-full flex justify-between items-center p-4 bg-gray-50 fixed top-0 left-0 z-50"
+      >
+        <div class="flex gap-2 items-center">
+          <a
+            style="font-family: Poppins"
+            class="tracking-tighter text-xl"
+            href="/shop"
+            >Shop
+          </a>
+        </div>
+        <div class="flex items-center">
+          <a class="text-3xl font-bold" href="/" style="font-family: Michroma"
+            >JACKETS</a
+          >
+        </div>
+        <div class="flex gap-8 items-center">
+          <a href="/wishlist"
+            ><i class="ri-heart-line text-xl cursor-pointer"></i
+          ></a>
+          <a href="/bag"
+            ><i class="text-xl cursor-pointer ri-shopping-bag-3-line"></i
+          ></a>
+          <a href="/users/register">
+            <i class="pr-4 ri-user-line text-xl cursor-pointer"></i>
+          </a>
+        </div>
+      </nav>
+      <div class="w-full fixed top-16 border-b pt-5 pl-20 pb-8 bg-gray-50 z-50">
+        <h1 class="text-5xl font-bold" style="font-family: Michroma">
+          WISHLIST [<%= user.wishlist.length %>]
+        </h1>
+      </div>
+      <div class="flex h-full">
+        <!-- Right side (flex wrap) -->
+        <div class="w-full absolute top-24 mt-1 right-0">
+          <div class="w-full -z-20 absolute top-16">
+            <div class="flex flex-wrap">
+              <!-- Example card -->
+              <% if (user.wishlist.length > 0) { %>
+              <% user.wishlist.forEach(function(product){ %>
+              <div class="w-96 h-full border-l border-r border-b">
+                <div class="w-full h-full relative border-b">
+                  <img
+                    src="data:image/jpeg;base64,<%= user.wishlist[0].image.toString('base64') %>"
+                    alt=""
+                    class="w-full h-full object-cover cursor-pointer"
+                    onclick="showPopup()"
+                  />
+
+                  <div
+                    id="popup"
+                    class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"
+                  >
+                    <button
+                      onclick="hidePopup()"
+                      class="w-full h-full absolute top-0 right-0 text-black text-xl"
+                    ></button>
+                    <button
+                      onclick="hidePopup()"
+                      class="absolute top-20 mt-2 right-5 text-black text-xl"
+                    >
+                      <i class="text-3xl ri-close-large-line"></i>
+                    </button>
+
+                    <div
+                      class="bg-gray-50 pb-44 pt-4 px-4 absolute top-40 mt-1 w-full h-full relative"
+                    >
+                      <div class="w-full h-full flex justify-center">
+                        <div class="w-full h-full p-4">
+                          <div class="w-full h-full flex justify-between">
+                            <div
+                              class="w-full h-full flex flex-col justify-between"
+                            >
+                              <h3
+                                class="text-7xl tracking-tighter text-left"
+                                style="font-family: Aboreto"
+                              >
+                                <%= product.name %>
+                              </h3>
+                              <div>
+                                <p
+                                  class="text-2xl tracking-tight font-light text-left pl-2"
+                                  style="font-family: Urbanist"
+                                >
+                                  <%= product.category %>, <%= product.material %>
+                                </p>
+                                <p
+                                  class="text-lg tracking-tight text-gray-400 font-normal text-left pl-2"
+                                  style="font-family: Urbanist"
+                                >
+                                  <%= product.specific %>
+                                </p>
+                              </div>
+                              <p class="w-full"><%= product.description %></p>
+                              <div
+                                class="w-full flex flex-col items-start gap-5"
+                              >
+                                <div
+                                  class="w-full flex tracking-tighter justify-start gap-3 border-gray-200 font-medium"
+                                >
+                                  <% product.size.forEach(function(size) { %>
+                                  <button class="border text-xl w-20 h-14">
+                                    <%= size %>
+                                  </button>
+                                  <% }) %>
+                                </div>
+
+                                <div
+                                  class="w-full underline cursor-pointer text-black text-lg font-medium tracking-tighter"
+                                >
+                                  Size Guide
+                                </div>
+                              </div>
+                              <div class="w-full flex flex-col">
+                                <p
+                                  class="text-2xl pb-4 font-light text-right"
+                                  style="font-family: Lato"
+                                >
+                                  $<%= product.price %>
+                                </p>
+                                <div class="w-full flex justify-end gap-2">
+                                  <a
+                                    class="bg-black uppercase px-24 py-2 text-white text-sm"
+                                    href="#"
+                                    >Add to Bag</a
+                                  >
+                                  <a
+                                    class="bg-transparent uppercase border border-gray-300 px-24 py-2 text-black text-sm"
+                                    href="#"
+                                    >Buy Now</a
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w-full flex flex-col items-end">
+                              <img
+                                class="w-20 object-cover border border-b-0"
+                                src="https://image.hm.com/assets/hm/a1/ae/a1ae4d7e6eafb9dfa9a618ce87bc1ffc8583655d.jpg?imwidth=1260"
+                                alt=""
+                              />
+                              <a href=""
+                                ><img
+                                  class="w-20 object-cover cursor-pointer border border-b-0"
+                                  src="https://image.hm.com/assets/hm/c2/02/c202e3c25c4f1831b2aaa34ac28533c51e2034b8.jpg?imwidth=1260"
+                                  alt=""
+                              /></a>
+                              <a href=""
+                                ><img
+                                  class="w-20 object-cover cursor-pointer border"
+                                  src="https://image.hm.com/assets/hm/57/f2/57f249e29432a067c7c224e0f09e9749bb460c7c.jpg?imwidth=1260"
+                                  alt=""
+                              /></a>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="w-full h-full p-4">
+                          <div
+                            class="w-full h-full flex flex-wrap gap-2 overflow-y-auto overflow-x-hidden"
+                          >
+                            <div class="w-full flex flex-row gap-2">
+                              <img
+                                class="w-full h-fit border border-gray-200 object-cover"
+                                src="data:image/jpeg;base64,<%= product.image1.toString('base64') %>"
+                                alt=""
+                              />
+                            </div>
+                            <div class="w-full flex flex-row gap-2">
+                              <img
+                                class="w-1/2 h-fit border object-cover"
+                                src="data:image/jpeg;base64,<%= product.image2.toString('base64') %>"
+                                alt=""
+                              />
+                              <img
+                                class="w-1/2 h-fit border object-cover"
+                                src="data:image/jpeg;base64,<%= product.image3.toString('base64') %>"
+                                alt=""
+                              />
+                            </div>
+                            <div class="w-full flex flex-row gap-2">
+                              <img
+                                class="w-1/2 h-fit border object-cover"
+                                src="data:image/jpeg;base64,<%= product.image4.toString('base64') %>"
+                                alt=""
+                              />
+                              <img
+                                class="w-1/2 h-fit border object-cover"
+                                src="data:image/jpeg;base64,<%= product.image5.toString('base64') %>"
+                                alt=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <span
+                    class="absolute top-0 left-0 bg-red-500 text-white px-2 py-1 text-sm font-bold"
+                    >-<%= product.discount %>%</span
+                  >
+                  <button>
+                      <a href="/wishlist/<%= product._id %>/remove"><i class="ri-delete-bin-7-line absolute top-2 right-4 text-black text-xl cursor-pointer"></i><a>
+                    </button>
+                </div>
+
+                <div class="w-full px-5 pt-1 pb-1 flex flex-col">
+                  <h3
+                    class="text-lg uppercase tracking-tighter"
+                    style="font-family: Aboreto"
+                  >
+                    <%= product.name %>
+                  </h3>
+                  <p
+                    class="italic text-black font-light text-base"
+                    style="font-family: Lato"
+                  >
+                    $<%= product.price %>
+                  </p>
+                </div>
+                <div
+                  class="w-full flex items-center justify-start gap-3 pb-2 pl-5"
+                >
+                  <div class="flex items-center justify-center gap-1">
+                    <% product.color.forEach(function(color) { %>
+                    <button
+                      class="w-3 h-2 bg-<%= color %>-500 cursor-pointer"
+                    ></button>
+                    <% }) %>
+                  </div>
+                  <div
+                    class="flex items-center justify-center gap-2 text-gray-600"
+                  >
+                    <% product.size.forEach(function(size) { %>
+
+                    <button class="border text-xs w-6 h-4 rounded">
+                      <%= size %>
+                    </button>
+                    <% }) %>
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+              <% } else { %>
+                <p class="text-gray-500 pt-10 pl-10 text-xl tracking-tight">your wishlist is empty</p>
+              <% } %>
+
+              <!-- Add more cards as needed -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleDropdown(menuId, iconId) {
+        // Select all elements with the class 'hidden'
+        document.querySelectorAll(".hidden").forEach((menu) => {
+          // If the current menu's ID is not equal to the provided menuId
+          if (menu.id !== menuId) {
+            // Add the 'hidden' class to hide the menu
+            menu.classList.add("hidden");
+          }
+        });
+
+        // Toggle the 'hidden' class on the element with the provided menuId
+        const menuElement = document.getElementById(menuId);
+        menuElement.classList.toggle("hidden");
+
+        // Toggle the icon
+        const iconElement = document.getElementById(iconId);
+        if (menuElement.classList.contains("hidden")) {
+          iconElement.classList.remove("ri-arrow-up-s-line");
+          iconElement.classList.add("ri-arrow-down-s-line");
+        } else {
+          iconElement.classList.remove("ri-arrow-down-s-line");
+          iconElement.classList.add("ri-arrow-up-s-line");
+        }
+      }
+
+      function showPopup() {
+        document.getElementById("popup").classList.remove("hidden");
+      }
+
+      function hidePopup() {
+        document.getElementById("popup").classList.add("hidden");
+      }
+    </script>
+  </body>
+</html>
