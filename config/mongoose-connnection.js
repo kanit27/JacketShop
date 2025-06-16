@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const config = require('config');
+const uri = process.env.MONGODB_URI;
 const dbgr = require("debug")("development:mongoose");
 
 mongoose
-.connect(`${config.get('MONGODB_URI')}/jacketshop`)
+.connect(`${uri}/jacketshop`)
 .then(function() {
     dbgr("connected");
 })
