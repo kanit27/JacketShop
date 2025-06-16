@@ -47,7 +47,7 @@ router.post(
         material,
       });
         req.flash("success", "Product created successfully");
-        res.redirect("/owners/products-page/product");
+        res.redirect("/owners/products-page");
     } catch (err) {
       res.send(err.message);
     }
