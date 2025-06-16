@@ -92,12 +92,47 @@
           <a href="/bag"
             ><i class="text-xl cursor-pointer ri-shopping-bag-3-line"></i
           ></a>
-          <a href="/users/register">
-            <i class="pr-4 ri-user-line text-xl cursor-pointer"></i>
-          </a>
+          <div class="relative" id="user-menu-root">
+            <i
+              class="pr-4 ri-user-line text-xl cursor-pointer"
+              onclick="toggleUserMenu()"
+            ></i>
+            <div
+              id="user-menu"
+              class="absolute right-0 mt-2 w-56 bg-white border rounded shadow-lg z-50 hidden"
+            >
+              <% if (user) { %>
+              <div class="px-4 py-2 border-b">
+                <p class="font-bold block"><%= user.fullname || user.name %></p>
+                <p class="block text-gray-600"><%= user.email %></p>
+              </div>
+              <div class="px-4 py-2 border-b">
+                <a href="/users/orders" class="block">
+                  Order History <i class="ri-history-line"></i>
+                </a>
+              </div>
+
+              <form action="/users/logout" method="GET" class="px-4 py-2">
+                <button type="submit" class="flex flex-row">
+                  <span>Logout</span>
+                  <i class="ri-logout-box-r-line"></i>
+                </button>
+              </form>
+              <% } else { %>
+              <a
+                href="/users/register"
+                class="block px-4 py-2 hover:bg-gray-100"
+                >Register</a
+              >
+              <a href="/users/login" class="block px-4 py-2 hover:bg-gray-100"
+                >Login</a
+              >
+              <% } %>
+            </div>
+          </div>
         </div>
       </nav>
-      <div class="w-full fixed top-16 border-b pt-5 pl-20 pb-8 bg-gray-50 z-50">
+      <div class="w-full fixed top-16 border-b pt-5 pl-20 pb-8 bg-gray-50 z-40">
         <h1 class="text-5xl font-bold" style="font-family: Michroma">
           WISHLIST [<%= user.wishlist.length %>]
         </h1>
@@ -357,6 +392,17 @@
       function hidePopup() {
         document.getElementById("popup").classList.add("hidden");
       }
+      function toggleUserMenu() {
+    const menu = document.getElementById('user-menu');
+    menu.classList.toggle('hidden');
+    // Optional: close menu when clicking outside
+    document.addEventListener('click', function handler(e) {
+      if (!document.getElementById('user-menu-root').contains(e.target)) {
+        menu.classList.add('hidden');
+        document.removeEventListener('click', handler);
+      }
+    });
+  }
     </script>
   </body>
 </html>

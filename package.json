@@ -7,7 +7,7 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Jacket Store is a full-stack e-commerce web application for purchasing jackets. It provides features like user authentication, product browsing, wishlist management, shopping bag functionality, and a secure checkout process using Stripe for payments.",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.12",
@@ -24,5 +24,20 @@
     "mongoose": "^8.9.6",
     "multer": "^1.4.5-lts.1",
     "stripe": "^17.6.0"
-  }
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanit27/JacketShop.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kanit27/JacketShop/issues"
+  },
+  "homepage": "https://github.com/kanit27/JacketShop#readme"
 }

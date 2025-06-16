@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products - JacketAdmin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <link
       href="https://unpkg.com/lucide-icons/dist/umd/lucide-icons.js"
       rel="stylesheet"
@@ -23,25 +26,25 @@
       rel="stylesheet"
     />
     <style>
-        * {
-          box-sizing: border-box;
-        }
-    
-        body {
-          margin: 0;
-          padding: 0;
-          font-family: "Poppins";
-          overflow-x: hidden;
-        }
-    
-        ::-webkit-scrollbar {
-          display: none;
-        }
-      </style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins";
+        overflow-x: hidden;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div class="w-screen h-screen">
-      <div class="flex h-screen bg-gray-100">
+      <div class="flex h-screen bg-gray-50">
         <div class="w-64 bg-white h-screen shadow-lg p-6">
           <h1 class="text-2xl font-bold text-gray-800">JacketAdmin</h1>
           <nav class="mt-6">
@@ -75,141 +78,230 @@
               <h1>Add Product</h1>
             </a>
           </div>
-          <div class="w-full  absolute top-16 mt-2">
+          <div class="w-full absolute top-[10vh] mt-2">
             <div class="flex flex-wrap border-t">
               <!-- Example card -->
-  
-              <div class="w-96 h-full border-l border-r border-b">
+
+              <% products.forEach(function(product){ %>
+              <div class="w-96 h-full border-r border-b">
                 <div class="w-full h-full relative border-b">
-  
                   <img
-                    src="https://image.hm.com/assets/hm/a1/ae/a1ae4d7e6eafb9dfa9a618ce87bc1ffc8583655d.jpg?imwidth=1260"
-                    alt="" class="w-full  h-full object-cover cursor-pointer " onclick="showPopup()" />
-  
-                  <div id="popup"
-                    class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
-                    <button onclick="hidePopup()" class="w-full h-full absolute top-0 right-0 text-black text-xl">
-                    </button>
-                    <button onclick="hidePopup()" class="absolute top-20 mt-2 right-5 text-black text-xl">
-                      <i class="text-3xl ri-close-large-line"></i>
-                    </button>
-  
-                    <div class="bg-gray-50 pb-44 pt-4 px-4 absolute top-40 mt-1 w-full h-full relative">
-                      <div class="w-full h-full flex justify-center ">
-  
-                        <div class="w-full h-full p-4 ">
-                          <div class="w-full h-full flex justify-between ">
-  
-                            <div class="w-full h-full flex flex-col justify-between">
-                              <h3 class="text-7xl tracking-tighter text-left" style="font-family: Aboreto;">Denim
-                                Worker</h3>
-                                <div>
-                                  <p class="text-2xl tracking-tight font-light text-left pl-2 " style="font-family: Urbanist;">Cotton,Denim</p>
-                                <p class="text-lg tracking-tight text-gray-400 font-normal text-left pl-2" style="font-family: Urbanist;">(Blue)</p>
-                                </div>
-                              <p class="w-full " >Loose-fit, unconstructed jacket in rigid cotton denim with a generous but not oversized silhouette. Notched lapels, two-button fastening at front, and a vent at back. Chest pocket, welt front pockets, and decorative buttons at cuffs. Unlined.</p>
-                              <div class="w-full  flex flex-col items-start gap-5">
+                    src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+                    alt=""
+                    class="w-full h-full object-cover cursor-pointer"
+                    onclick="showPopup('<%= product._id %>')"
+                  />
+
+                  <div
+                    id="popup-<%= product._id %>"
+                    class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"
+                  >
+                    <button
+                      onclick="hidePopup('<%= product._id %>')"
+                      class="w-full h-full absolute top-0 right-0 text-black text-xl"
+                    ></button>
+                    <div
+                      class="bg-gray-50 pb-44 pt-4 px-4 absolute top-40 mt-1 w-full h-full relative"
+                    >
+                      <div class="w-full h-full flex justify-center">
+                        <div class="w-full h-full p-4">
+                          <div class="w-full h-full flex justify-between">
+                            <div
+                              class="w-full h-full flex flex-col justify-between"
+                            >
+                              <h3
+                                class="text-7xl tracking-tighter text-left"
+                                style="font-family: Aboreto"
+                              >
+                                <%= product.name %>
+                              </h3>
+                              <div>
+                                <p
+                                  class="text-2xl tracking-tight font-light text-left pl-2"
+                                  style="font-family: Urbanist"
+                                >
+                                  <%= product.category %>, <%= product.material
+                                  %>
+                                </p>
+                                <p
+                                  class="text-lg tracking-tight text-gray-400 font-normal text-left pl-2"
+                                  style="font-family: Urbanist"
+                                >
+                                  (<%= product.specific %>)
+                                </p>
+                              </div>
+                              <p class="w-full"><%= product.description %></p>
+                              <div
+                                class="w-full flex flex-col items-start gap-5"
+                              >
                                 <div
-                                  class="w-full flex tracking-tighter justify-start gap-3 border-gray-200 font-medium ">
-                                  <button class="border text-xl w-20 h-14">XS</button>
-                                  <button class="border text-xl w-20 h-14">S</button>
-                                  <button class="border text-xl w-20 h-14">M</button>
-                                  <button class="border text-xl w-20 h-14">L</button>
-                                  <button class="border text-xl w-20 h-14">XL</button>
-                                  <button class="border text-xl w-20 h-14">XXL</button>
+                                  class="w-full flex tracking-tighter justify-start gap-3 border-gray-200 font-medium"
+                                >
+                                  <% product.size.forEach(function(size) { %>
+                                  <button class="border text-xl w-20 h-14">
+                                    <%= size %>
+                                  </button>
+                                  <% }) %>
                                 </div>
-  
                                 <div
-                                  class="w-full underline cursor-pointer text-black text-lg font-medium tracking-tighter">
+                                  class="w-full underline cursor-pointer text-black text-lg font-medium tracking-tighter"
+                                >
                                   Size Guide
                                 </div>
                               </div>
                               <div class="w-full flex flex-col">
-                                <p class=" text-2xl pb-4 font-light text-right" style="font-family: Lato;">$99.99</p>
-                                <div class="w-full flex justify-end gap-2">
-                                  <a class="bg-black uppercase px-24 py-2 text-white text-sm" href="#">Add to Bag</a>
-                                  <a class="bg-transparent uppercase border border-gray-300 px-24 py-2 text-black text-sm"
-                                    href="#">Buy Now</a>
+                                <p
+                                  class="text-2xl pb-4 font-light text-right"
+                                  style="font-family: Lato"
+                                >
+                                  $<%= product.price %>
+                                </p>
+                                <div class="flex justify-end gap-2">
+                                  <!-- Edit Button for Admin -->
+                                  <a
+                                    class="bg-blue-600 uppercase px-12 py-2 text-white text-sm rounded hover:bg-blue-700 transition"
+                                    href="/owners/products-page/edit/<%= product._id %>"
+                                  >
+                                    <i class="ri-edit-line mr-1"></i>Edit
+                                  </a>
+                                  <form
+                                    action="/owners/products-page/delete/<%= product._id %>"
+                                    method="POST"
+                                    onsubmit="return confirm('Are you sure you want to delete this product?');"
+                                  >
+                                    <button
+                                      type="submit"
+                                      class="bg-red-600 uppercase z-50 px-12 py-2 text-white text-sm rounded hover:bg-red-700 transition"
+                                    >
+                                      <i class="ri-delete-bin-line mr-1"></i
+                                      >Delete
+                                    </button>
+                                  </form>
                                 </div>
                               </div>
-  
                             </div>
                             <div class="w-full flex flex-col items-end">
-                              <img class="w-20 object-cover border border-b-0"
+                              <img
+                                class="w-20 object-cover border border-b-0"
                                 src="https://image.hm.com/assets/hm/a1/ae/a1ae4d7e6eafb9dfa9a618ce87bc1ffc8583655d.jpg?imwidth=1260"
-                                alt="">
-                              <a href=""><img class="w-20 object-cover cursor-pointer border border-b-0"
+                                alt=""
+                              />
+                              <a href="#"
+                                ><img
+                                  class="w-20 object-cover cursor-pointer border border-b-0"
                                   src="https://image.hm.com/assets/hm/c2/02/c202e3c25c4f1831b2aaa34ac28533c51e2034b8.jpg?imwidth=1260"
-                                  alt=""></a>
-                              <a href=""><img class="w-20 object-cover cursor-pointer border "
+                                  alt=""
+                              /></a>
+                              <a href="#"
+                                ><img
+                                  class="w-20 object-cover cursor-pointer border"
                                   src="https://image.hm.com/assets/hm/57/f2/57f249e29432a067c7c224e0f09e9749bb460c7c.jpg?imwidth=1260"
-                                  alt=""></a>
+                                  alt=""
+                              /></a>
                             </div>
                           </div>
-                          
-  
-  
                         </div>
-  
                         <div class="w-full h-full p-4">
-                          <div class="w-full h-full flex flex-wrap gap-2 overflow-y-auto overflow-x-hidden">
+                          <div
+                            class="w-full h-full flex flex-wrap gap-2 overflow-y-auto overflow-x-hidden"
+                          >
                             <div class="w-full flex flex-row gap-2">
-                              <img class="w-full h-fit border border-gray-200 object-cover"
-                                src="https://image.hm.com/assets/hm/5d/a2/5da25efc158441ed33361ea8850e6f6a61e7c098.jpg?imwidth=1260"
-                                alt="" />
+                              <img
+                                class="w-full h-fit border border-gray-200 object-cover"
+                                src="data:image/jpeg;base64,<%= product.image1.toString('base64') %>"
+                                alt=""
+                              />
                             </div>
                             <div class="w-full flex flex-row gap-2">
-                              <img class="w-1/2 h-fit border object-cover"
-                                src="https://image.hm.com/assets/hm/81/f3/81f33f258d46ad6ab814289e662d1a35b10674bc.jpg?imwidth=2160"
-                                alt="" />
-                              <img class="w-1/2 h-fit border object-cover"
-                                src="https://image.hm.com/assets/hm/5d/b8/5db8452d87f2dbdcca654759192ce1124f794e25.jpg?imwidth=1260"
-                                alt="" />
+                              <img
+                                class="w-1/2 h-fit border object-cover"
+                                src="data:image/jpeg;base64,<%= product.image2.toString('base64') %>"
+                                alt=""
+                              />
+                              <img
+                                class="w-1/2 h-fit border object-cover"
+                                src="data:image/jpeg;base64,<%= product.image3.toString('base64') %>"
+                                alt=""
+                              />
                             </div>
                             <div class="w-full flex flex-row gap-2">
-                              <img class="w-1/2 h-fit border object-cover"
-                                src="https://image.hm.com/assets/hm/d7/d4/d7d4233f2223e99686b6551fb7762a4bd775b9d2.jpg?imwidth=1260"
-                                alt="" />
-                              <img class="w-1/2 h-fit border object-cover"
-                                src="https://image.hm.com/assets/hm/66/be/66be3bec7b2a0567af9a3d611dedfeee0f6d6894.jpg?imwidth=1260"
-                                alt="" />
+                              <img
+                                class="w-1/2 h-fit border object-cover"
+                                src="data:image/jpeg;base64,<%= product.image4.toString('base64') %>"
+                                alt=""
+                              />
+                              <img
+                                class="w-1/2 h-fit border object-cover"
+                                src="data:image/jpeg;base64,<%= product.image5.toString('base64') %>"
+                                alt=""
+                              />
                             </div>
                           </div>
                         </div>
-  
                       </div>
                     </div>
                   </div>
-  
-                  <span class="absolute top-0 left-0 bg-red-500 text-white px-2 py-1 text-sm font-bold">-20%</span>
-                  <button>
-                    <i class="ri-heart-line absolute top-2 right-4 text-black text-xl cursor-pointer"></i>
-                  </button>
+                  <span
+                    class="absolute top-0 left-0 bg-red-500 text-white px-2 py-1 text-sm font-bold"
+                    >-<%= product.discount %>%</span
+                  >
                 </div>
-  
-  
-  
-                <div class="w-full px-5 pt-1 pb-1 flex flex-col">
-                  <h3 class="text-lg uppercase tracking-tighter" style="font-family: Aboreto;">Denim Blazer</h3>
-                  <p class="italic text-black font-light text-base" style="font-family: Lato;">$99.99</p>
+                <div class="w-full px-5 pt-1 pb-1 flex flex-col relative">
+                  <h3
+                    class="text-lg uppercase tracking-tighter"
+                    style="font-family: Aboreto"
+                  >
+                    <%= product.name %>
+                  </h3>
+                  <p
+                    class="italic text-black font-light text-base"
+                    style="font-family: Lato"
+                  >
+                    $<%= product.price %>
+                  </p>
+                  <!-- Edit Button for Admin (outside popup for quick access) -->
+                  <a
+                    class="absolute top-2 right-4 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition"
+                    href="/owners/products-page/edit/<%= product._id %>"
+                  >
+                    <i class="ri-edit-line mr-1"></i>
+                  </a>
+                  <form
+                    action="/owners/products-page/delete/<%= product._id %>"
+                    method="POST"
+                    onsubmit="return confirm('Are you sure you want to delete this product?');"
+                  >
+                    <button
+                      type="submit"
+                      class="bg-red-600 absolute top-11 right-4 uppercase px-4 py-1 text-white  rounded hover:bg-red-700 transition"
+                    >
+                      <i class="ri-delete-bin-line mr-1"></i>
+                    </button>
+                  </form>
                 </div>
-                <div class="w-full flex items-center justify-start gap-3 pb-2 pl-5">
+                <div
+                  class="w-full flex items-center justify-start gap-3 pb-2 pl-5"
+                >
                   <div class="flex items-center justify-center gap-1">
-                    <button class="w-3 h-2 bg-black cursor-pointer"></button>
-                    <button class="w-3 h-2 bg-blue-500 cursor-pointer"></button>
-                    <button class="w-3 h-2 bg-gray-500 cursor-pointer"></button>
+                    <% product.color.forEach(function(color) { %>
+                    <button
+                      class="w-3 h-2 bg-<%= color %>-500 cursor-pointer"
+                    ></button>
+                    <% }) %>
                   </div>
-                  <div class="flex items-center justify-center gap-2 text-gray-600">
-                    <button class="border text-xs w-6 h-4 rounded">XS</button>
-                    <button class="border text-xs w-6 h-4 rounded">S</button>
-                    <button class="border text-xs w-6 h-4 rounded">M</button>
-                    <button class="border text-xs w-6 h-4 rounded">L</button>
-                    <button class="border text-xs w-6 h-4 rounded">XL</button>
+                  <div
+                    class="flex items-center justify-center gap-2 text-gray-600"
+                  >
+                    <% product.size.forEach(function(size) { %>
+                    <button class="border text-xs w-6 h-4 rounded">
+                      <%= size %>
+                    </button>
+                    <% }) %>
                   </div>
                 </div>
-  
               </div>
-  
+              <% }) %>
+
               <!-- Add more cards as needed -->
             </div>
           </div>
@@ -218,13 +310,19 @@
     </div>
 
     <script>
-        function showPopup() {
-      document.getElementById("popup").classList.remove("hidden");
-    }
+      function showPopup(productId) {
+        const popup = document.getElementById("popup-" + productId);
+        if (popup) {
+          popup.classList.remove("hidden");
+        }
+      }
 
-    function hidePopup() {
-      document.getElementById("popup").classList.add("hidden");
-    }
+      function hidePopup(productId) {
+        const popup = document.getElementById("popup-" + productId);
+        if (popup) {
+          popup.classList.add("hidden");
+        }
+      }
     </script>
   </body>
 </html>

@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orders - JacketAdmin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <link href="https://unpkg.com/lucide-icons/dist/umd/lucide-icons.js" rel="stylesheet">
     <script src="https://unpkg.com/lucide-icons" defer></script>
 </head>
@@ -25,7 +28,6 @@
                     <thead>
                         <tr class="text-left text-gray-500">
                             <th class="pb-4">Order ID</th>
-                            <th class="pb-4">Customer</th>
                             <th class="pb-4">Products</th>
                             <th class="pb-4">Total</th>
                             <th class="pb-4">Date</th>
@@ -34,23 +36,100 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-t">
-                            <td class="py-4">#12345</td>
-                            <td class="py-4">John Doe</td>
-                            <td class="py-4">Leather Jacket</td>
-                            <td class="py-4">$199.99</td>
-                            <td class="py-4">2024-02-16</td>
+                      <% if (orders && orders.length > 0) { %>
+                        <% orders.forEach(function(order, idx) { %>
+                          <tr class="border-t">
+                            <td class="py-4"><%= order._id %></td>
                             <td class="py-4">
-                                <span class="px-3 py-1 text-sm rounded-full bg-green-100 text-green-800">Shipped</span>
+                              <% order.products.forEach(function(product, idx) { %>
+                                <div>
+                                  <%= product.name %>
+                                  <% if (product.quantity) { %> x<%= product.quantity %><% } %>
+                                  <% if (idx < order.products.length - 1) { %>, <% } %>
+                                </div>
+                              <% }) %>
                             </td>
                             <td class="py-4">
-                                <button class="text-indigo-600 hover:text-indigo-800">View Details</button>
+                              $<%= order.products.reduce((sum, p) => sum + (parseFloat(p.price) * (p.quantity || 1)), 0).toFixed(2) %>
                             </td>
+                            <td class="py-4"><%= order.createdAt ? order.createdAt.toISOString().slice(0,10) : '' %></td>
+                            <td class="py-4">
+                              <span class="px-3 py-1 text-sm rounded-full bg-green-100 text-green-800"><%= order.status %></span>
+                            </td>
+                            <td class="py-4">
+                              <button type="button"
+                                class="text-indigo-600 hover:text-indigo-800"
+                                onclick="showOrderBlock(<%= idx %>)">
+                                View Details
+                              </button>
+                            </td>
+                          </tr>
+
+                          <!-- Bottom White Block for Order Details -->
+                          <tr id="order-block-<%= idx %>" class="hidden">
+                            <td colspan="6" class="p-0">
+                              <div class="w-full bg-white border-t border-b shadow-lg px-8 py-6">
+                                <div class="flex justify-between items-center mb-4">
+                                  <h2 class="text-xl font-bold">Order Details</h2>
+                                  <button onclick="hideOrderBlock(<%= idx %>)" class="text-2xl text-gray-400 hover:text-gray-600">&times;</button>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                  <div>
+                                    <div class="mb-2"><strong>Order ID:</strong> <%= order._id %></div>
+                                    <div class="mb-2"><strong>Customer:</strong> <%= order.user && order.user.fullname ? order.user.fullname : (order.shipping && order.shipping.fullname ? order.shipping.fullname : 'N/A') %></div>
+                                    <div class="mb-2"><strong>Email:</strong> <%= order.user && order.user.email ? order.user.email : (order.shipping && order.shipping.email ? order.shipping.email : 'N/A') %></div>
+                                    <div class="mb-2"><strong>Phone:</strong> <%= order.user && order.user.phone ? order.user.phone : (order.shipping && order.shipping.phone ? order.shipping.phone : 'N/A') %></div>
+                                    <div class="mb-2"><strong>Address:</strong>
+                                      <% if(order.shipping) { %>
+                                        <%= order.shipping.address %>, <%= order.shipping.city %>, <%= order.shipping.zipCode %>, <%= order.shipping.country %>
+                                      <% } else { %>
+                                        N/A
+                                      <% } %>
+                                    </div>
+                                    <div class="mb-2"><strong>Status:</strong> <%= order.status %></div>
+                                    <div class="mb-2"><strong>Date:</strong> <%= order.createdAt ? order.createdAt.toISOString().slice(0,10) : '' %></div>
+                                  </div>
+                                  <div>
+                                    <div class="mb-2"><strong>Products:</strong>
+                                      <ul class="list-disc pl-5">
+                                        <% order.products.forEach(function(product) { %>
+                                          <li>
+                                            <%= product.name %>
+                                            <% if (product.quantity) { %> x<%= product.quantity %><% } %>
+                                            - $<%= product.price %>
+                                          </li>
+                                        <% }) %>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <!-- End Bottom White Block -->
+                        <% }) %>
+                      <% } else { %>
+                        <tr>
+                          <td colspan="10" class="py-8 text-center text-gray-400">No orders found.</td>
                         </tr>
+                      <% } %>
                     </tbody>
                 </table>
             </div>
         </main>
     </div>
+
+    <script>
+      function showOrderBlock(idx) {
+        // Hide all open blocks first
+        document.querySelectorAll('[id^="order-block-"]').forEach(el => el.classList.add('hidden'));
+        document.getElementById('order-block-' + idx).classList.remove('hidden');
+        // Optionally, scroll to the block
+        document.getElementById('order-block-' + idx).scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      function hideOrderBlock(idx) {
+        document.getElementById('order-block-' + idx).classList.add('hidden');
+      }
+    </script>
 </body>
 </html>

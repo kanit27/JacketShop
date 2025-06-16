@@ -4,30 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Confirmation</title>
-    <link rel="stylesheet" href="/styles/main.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Urbanist:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Urbanist', 'Lato', Arial, sans-serif;
+            background: #f9fafb;
+        }
+        h1, h2 {
+            font-family: 'Michroma', 'Urbanist', Arial, sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+        a {
+            color: #111827;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        .checkmark {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .checkmark svg {
+            width: 70px;
+            height: 70px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Thank You for Your Purchase!</h1>
-        <p>Your product has been successfully confirmed.</p>
+        <div class="checkmark">
+            <svg viewBox="0 0 52 52">
+                <circle cx="26" cy="26" r="25" fill="#10b981" opacity="0.15"/>
+                <path fill="none" stroke="#10b981" stroke-width="4" d="M14 27l7 7 17-17"/>
+            </svg>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-bold mb-2 text-gray-900">Thank You for Your Purchase!</h1>
+        <p class="text-gray-700 mb-6">Your product has been successfully confirmed.</p>
 
-        <h2>Shipping Details</h2>
-        <ul>
-            <li><strong>Name:</strong> <%= shippingDetails.name %></li>
-            <li><strong>Address:</strong> <%= shippingDetails.address %></li>
-            <li><strong>City:</strong> <%= shippingDetails.city %></li>
-            <li><strong>Postal Code:</strong> <%= shippingDetails.postalCode %></li>
-            <li><strong>Country:</strong> <%= shippingDetails.country %></li>
-        </ul>
+        <h2 class="text-xl font-semibold mb-2 text-gray-800">Shipping Details</h2>
+        <p class="text-gray-600 mb-6">Your order will be shipped to your address soon.<br>
+        You will receive a confirmation email with tracking information.</p>
 
-        <h2>Order Summary</h2>
-        <ul>
-            <li><strong>Product Name:</strong> <%= product.name %></li>
-            <li><strong>Quantity:</strong> <%= product.quantity %></li>
-            <li><strong>Total Price:</strong> $<%= product.totalPrice %></li>
-        </ul>
+        <h2 class="text-xl font-semibold mb-2 text-gray-800">Order Summary</h2>
+        <p class="text-gray-600 mb-6">Thank you for shopping with us.<br>
+        You can view your order details in your <a href="/profile">profile</a>.</p>
 
-        <p>If you have any questions, feel free to <a href="/contact">contact us</a>.</p>
+        <h2 class="text-xl font-semibold mb-2 text-gray-800">Order Items</h2>
+        <div class="mb-6">
+          <% if (order && order.products && order.products.length > 0) { %>
+            <% order.products.forEach(function(product) { %>
+              <div class="flex items-center gap-4 mb-2">
+                <img src="data:image/jpeg;base64,<%= product.image %>" alt="<%= product.name %>" class="w-12 h-12 object-cover rounded">
+                <div>
+                  <div class="font-semibold"><%= product.name %></div>
+                  <div class="text-gray-500">$<%= product.price %></div>
+                </div>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <div class="text-gray-500">No products found in your order.</div>
+          <% } %>
+        </div>
+
+        <p class="text-gray-500 mt-8">If you have any questions, feel free to <a href="/contact">contact us</a>.</p>
+        <a href="/shop" class="inline-block mt-8 px-6 py-2 rounded-full bg-black text-white font-semibold hover:bg-gray-800 transition">Continue Shopping</a>
     </div>
 </body>
-</html></html>
+</html>

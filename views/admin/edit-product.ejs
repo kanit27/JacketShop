@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Product - JacketAdmin</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-gray-50">
+    <!-- Sidebar -->
+    <div class="flex h-screen">
+      <div class="w-64 bg-white h-screen shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-gray-800">JacketAdmin</h1>
+        <nav class="mt-6">
+          <a
+            href="/owners/dashboard"
+            class="block px-6 py-3 text-gray-600 hover:bg-gray-100"
+            >Dashboard</a
+          >
+          <a
+            href="/owners/products-page"
+            class="block px-6 py-3 text-gray-600 hover:bg-gray-100"
+            >Products</a
+          >
+          <a
+            href="/owners/orders-page"
+            class="block px-6 py-3 text-gray-600 hover:bg-gray-100"
+            >Orders</a
+          >
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">
+          Edit Product
+        </h1>
+
+        <!-- Form -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <form
+            class="space-y-6"
+            method="POST"
+            action="/owners/products-page/edit/<%= product._id %>"
+            enctype="multipart/form-data"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Product Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  value="<%= product.name %>"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Discount (%)</label
+                >
+                <input
+                  type="number"
+                  id="discount"
+                  name="discount"
+                  min="0"
+                  max="100"
+                  step="0.01"
+                  class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  value="<%= product.discount %>"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Price ($)</label
+                >
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  required
+                  min="0"
+                  step="0.01"
+                  class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  value="<%= product.price %>"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Stock Quantity</label
+                >
+                <input
+                  type="number"
+                  name="quantity"
+                  required
+                  min="0"
+                  class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  value="<%= product.quantity %>"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Size</label
+                >
+                <div class="flex flex-wrap gap-2">
+                  <% const sizes = product.size || []; %>
+                  <% ["XS","S","M","L","XL","XXL"].forEach(function(size) { %>
+                    <label class="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        name="size"
+                        value="<%= size %>"
+                        class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        <% if (sizes.includes(size)) { %>checked<% } %>
+                      />
+                      <span class="ml-2 text-gray-700"><%= size %></span>
+                    </label>
+                  <% }) %>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Color</label
+                >
+                <div class="flex flex-wrap gap-2">
+                  <% const colors = product.color || []; %>
+                  <% ["red","blue","green","black"].forEach(function(color) { %>
+                    <label class="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        name="color"
+                        value="<%= color %>"
+                        class="form-checkbox text-<%= color %>-600 border-gray-300 rounded focus:ring-<%= color %>-500"
+                        <% if (colors.includes(color)) { %>checked<% } %>
+                      />
+                      <span class="ml-2 text-gray-700"><%= color.charAt(0).toUpperCase() + color.slice(1) %></span>
+                    </label>
+                  <% }) %>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Description</label
+                >
+                <textarea
+                  name="description"
+                  rows="4"
+                  class="w-full resize-none p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  required
+                ><%= product.description %></textarea>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Category</label
+                >
+                <div class="flex flex-wrap gap-2">
+                  <% const categories = product.category ? (Array.isArray(product.category) ? product.category : [product.category]) : []; %>
+                  <% ["Bomber","Oversize","Denim","Leather","Puffer","Biker","Quilted","Winter"].forEach(function(category) { %>
+                    <label class="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        name="category"
+                        value="<%= category %>"
+                        class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        <% if (categories.includes(category)) { %>checked<% } %>
+                      />
+                      <span class="ml-2 text-gray-700"><%= category %></span>
+                    </label>
+                  <% }) %>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Material</label
+                >
+                <div class="flex flex-wrap gap-2">
+                  <% const materials = product.material ? (Array.isArray(product.material) ? product.material : [product.material]) : []; %>
+                  <% ["Cotton","Leather","Denim","Polyester"].forEach(function(material) { %>
+                    <label class="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        name="material"
+                        value="<%= material %>"
+                        class="form-checkbox text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        <% if (materials.includes(material)) { %>checked<% } %>
+                      />
+                      <span class="ml-2 text-gray-700"><%= material %></span>
+                    </label>
+                  <% }) %>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Specific Text</label
+              >
+              <input
+                type="text"
+                name="specific"
+                class="w-1/2 p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                placeholder="Enter specific text"
+                value="<%= product.specific %>"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Product Images</label
+              >
+              <div class="space-y-2">
+                <div>
+                  <label
+                    for="image"
+                    class="block text-sm font-medium text-gray-700"
+                    >Image </label
+                  >
+                  <input
+                    name="image"
+                    type="file"
+                    id="image"
+                    class="w-full p-2 border rounded-lg"
+                  />
+                  <% if (product.image) { %>
+                    <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="Current Image" class="w-24 h-24 mt-2 object-cover rounded">
+                  <% } %>
+                </div>
+                <% for(let i=1; i<=5; i++) { %>
+                <div>
+                  <label
+                    for="image<%= i %>"
+                    class="block text-sm font-medium text-gray-700"
+                    >Image <%= i %></label
+                  >
+                  <input
+                    name="image<%= i %>"
+                    type="file"
+                    id="image<%= i %>"
+                    class="w-full p-2 border rounded-lg"
+                  />
+                  <% if (product['image'+i]) { %>
+                    <img src="data:image/jpeg;base64,<%= product['image'+i].toString('base64') %>" alt="Current Image <%= i %>" class="w-24 h-24 mt-2 object-cover rounded">
+                  <% } %>
+                </div>
+                <% } %>
+              </div>
+            </div>
+
+            <div class="flex justify-end space-x-4">
+              <a
+                href="/owners/products-page"
+                class="px-4 py-2 border rounded-lg hover:bg-gray-50"
+              >
+                Cancel
+              </a>
+              <input
+                type="submit"
+                class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                value="Update Product"
+              />
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

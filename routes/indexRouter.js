@@ -9,10 +9,11 @@ const isLoggedIn = require("../middlewares/isLoggedIn");
 const productModel = require("../models/product-model");
 const userModel = require("../models/user-model");
 const mongoose = require("mongoose");
+const Order = require("../models/order-model"); // Add at the top if not present
 
 router.get("/", (req, res) => {
   let error = req.flash("error");
-  res.render("index", { error });
+  res.render("index", { error, user: req.user || null });
 });
 
 router.get("/shop", isLoggedIn, async (req, res) => {
@@ -22,6 +23,7 @@ router.get("/shop", isLoggedIn, async (req, res) => {
   let error = req.flash("error");
   res.render("shop", { products , user, error, success });
 });
+
 
 // Show Wishlist Page
 router.get("/wishlist", isLoggedIn, async (req, res) => {
@@ -177,7 +179,62 @@ router.get("/checkout", isLoggedIn, async (req, res) => {
   }
 });
 
+router.get("/productConfirmed", isLoggedIn, async (req, res) => {
+  try {
+    const user = await userModel.findOne({ email: req.user.email }).lean();
+    let success = req.flash("success");
+    let error = req.flash("error");
+    res.render("productConfirmed", { user, success, error });
+  } catch (err) {
+    console.error("❌ Error loading product confirmed page:", err);
+    req.flash("error", "Something went wrong");
+    res.redirect("/shop");
+  }
+});
 
+router.post("/productConfirmed", isLoggedIn, async (req, res) => {
+  try {
+    // Extract shipping and product data from the form
+    const { fullname, email, address, city, zipCode, country, phone } = req.body;
+    let products = req.body.products || [];
+
+    // If only one product, wrap it in an array
+    if (products && !Array.isArray(products)) {
+      products = [products];
+    }
+
+    // If products is an object (from nested fields), convert to array
+    if (typeof products === "object" && !Array.isArray(products)) {
+      products = Object.values(products);
+    }
+
+    // Log for debugging
+    console.log("Received order products:", products);
+
+    // Save order to DB
+    const order = await Order.create({
+      user: req.user._id,
+      products: products.map(p => ({
+        name: p.name,
+        price: p.price,
+        image: p.image,
+        category: p.category,
+        material: p.material,
+        quantity: p.quantity || 1
+      })),
+      shipping: { fullname, email, address, city, zipCode, country, phone }
+    });
+
+    // Log order for debugging
+    console.log("Order saved:", order);
+
+    res.render("productConfirmed", { user: req.user, products: order.products, order });
+  } catch (err) {
+    console.error("❌ Error saving order:", err);
+    req.flash("error", "Something went wrong");
+    res.redirect("/checkout");
+  }
+});
 
 dotenv.config();
 
