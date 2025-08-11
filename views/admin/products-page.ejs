@@ -1,328 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Products - JacketAdmin</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://unpkg.com/lucide-icons/dist/umd/lucide-icons.js"
-      rel="stylesheet"
-    />
-    <script src="https://unpkg.com/lucide-icons" defer></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: "Poppins";
-        overflow-x: hidden;
-      }
-
-      ::-webkit-scrollbar {
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="w-screen h-screen">
-      <div class="flex h-screen bg-gray-50">
-        <div class="w-64 bg-white h-screen shadow-lg p-6">
-          <h1 class="text-2xl font-bold text-gray-800">JacketAdmin</h1>
-          <nav class="mt-6">
-            <a
-              href="/owners/dashboard"
-              class="block px-6 py-3 text-gray-600 hover:bg-gray-100"
-              >Dashboard</a
-            >
-            <a
-              href="/owners/products-page"
-              class="block px-6 py-3 text-gray-600 hover:bg-gray-100"
-              >Products</a
-            >
-            <a
-              href="/owners/orders-page"
-              class="block px-6 py-3 text-gray-600 hover:bg-gray-100"
-              >Orders</a
-            >
-          </nav>
-        </div>
-
-        <div class="w-full h-full">
-          <div class="w-full p-8 flex justify-between">
-            <h1 class="text-3xl font-bold text-black">Products</h1>
-
-            <a
-              class="flex flex-row gap-2 bg-black h-fit px-8 py-3 rounded-xl text-white"
-              href="/owners/products-page/product"
-            >
-              <i class="ri-add-line"></i>
-              <h1>Add Product</h1>
-            </a>
-          </div>
-          <div class="w-full absolute top-[10vh] mt-2">
-            <div class="flex flex-wrap border-t">
-              <!-- Example card -->
-
-              <% products.forEach(function(product){ %>
-              <div class="w-96 h-full border-r border-b">
-                <div class="w-full h-full relative border-b">
-                  <img
-                    src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
-                    alt=""
-                    class="w-full h-full object-cover cursor-pointer"
-                    onclick="showPopup('<%= product._id %>')"
-                  />
-
-                  <div
-                    id="popup-<%= product._id %>"
-                    class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"
-                  >
-                    <button
-                      onclick="hidePopup('<%= product._id %>')"
-                      class="w-full h-full absolute top-0 right-0 text-black text-xl"
-                    ></button>
-                    <div
-                      class="bg-gray-50 pb-44 pt-4 px-4 absolute top-40 mt-1 w-full h-full relative"
-                    >
-                      <div class="w-full h-full flex justify-center">
-                        <div class="w-full h-full p-4">
-                          <div class="w-full h-full flex justify-between">
-                            <div
-                              class="w-full h-full flex flex-col justify-between"
-                            >
-                              <h3
-                                class="text-7xl tracking-tighter text-left"
-                                style="font-family: Aboreto"
-                              >
-                                <%= product.name %>
-                              </h3>
-                              <div>
-                                <p
-                                  class="text-2xl tracking-tight font-light text-left pl-2"
-                                  style="font-family: Urbanist"
-                                >
-                                  <%= product.category %>, <%= product.material
-                                  %>
-                                </p>
-                                <p
-                                  class="text-lg tracking-tight text-gray-400 font-normal text-left pl-2"
-                                  style="font-family: Urbanist"
-                                >
-                                  (<%= product.specific %>)
-                                </p>
-                              </div>
-                              <p class="w-full"><%= product.description %></p>
-                              <div
-                                class="w-full flex flex-col items-start gap-5"
-                              >
-                                <div
-                                  class="w-full flex tracking-tighter justify-start gap-3 border-gray-200 font-medium"
-                                >
-                                  <% product.size.forEach(function(size) { %>
-                                  <button class="border text-xl w-20 h-14">
-                                    <%= size %>
-                                  </button>
-                                  <% }) %>
-                                </div>
-                                <div
-                                  class="w-full underline cursor-pointer text-black text-lg font-medium tracking-tighter"
-                                >
-                                  Size Guide
-                                </div>
-                              </div>
-                              <div class="w-full flex flex-col">
-                                <p
-                                  class="text-2xl pb-4 font-light text-right"
-                                  style="font-family: Lato"
-                                >
-                                  $<%= product.price %>
-                                </p>
-                                <div class="flex justify-end gap-2">
-                                  <!-- Edit Button for Admin -->
-                                  <a
-                                    class="bg-blue-600 uppercase px-12 py-2 text-white text-sm rounded hover:bg-blue-700 transition"
-                                    href="/owners/products-page/edit/<%= product._id %>"
-                                  >
-                                    <i class="ri-edit-line mr-1"></i>Edit
-                                  </a>
-                                  <form
-                                    action="/owners/products-page/delete/<%= product._id %>"
-                                    method="POST"
-                                    onsubmit="return confirm('Are you sure you want to delete this product?');"
-                                  >
-                                    <button
-                                      type="submit"
-                                      class="bg-red-600 uppercase z-50 px-12 py-2 text-white text-sm rounded hover:bg-red-700 transition"
-                                    >
-                                      <i class="ri-delete-bin-line mr-1"></i
-                                      >Delete
-                                    </button>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="w-full flex flex-col items-end">
-                              <img
-                                class="w-20 object-cover border border-b-0"
-                                src="https://image.hm.com/assets/hm/a1/ae/a1ae4d7e6eafb9dfa9a618ce87bc1ffc8583655d.jpg?imwidth=1260"
-                                alt=""
-                              />
-                              <a href="#"
-                                ><img
-                                  class="w-20 object-cover cursor-pointer border border-b-0"
-                                  src="https://image.hm.com/assets/hm/c2/02/c202e3c25c4f1831b2aaa34ac28533c51e2034b8.jpg?imwidth=1260"
-                                  alt=""
-                              /></a>
-                              <a href="#"
-                                ><img
-                                  class="w-20 object-cover cursor-pointer border"
-                                  src="https://image.hm.com/assets/hm/57/f2/57f249e29432a067c7c224e0f09e9749bb460c7c.jpg?imwidth=1260"
-                                  alt=""
-                              /></a>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="w-full h-full p-4">
-                          <div
-                            class="w-full h-full flex flex-wrap gap-2 overflow-y-auto overflow-x-hidden"
-                          >
-                            <div class="w-full flex flex-row gap-2">
-                              <img
-                                class="w-full h-fit border border-gray-200 object-cover"
-                                src="data:image/jpeg;base64,<%= product.image1.toString('base64') %>"
-                                alt=""
-                              />
-                            </div>
-                            <div class="w-full flex flex-row gap-2">
-                              <img
-                                class="w-1/2 h-fit border object-cover"
-                                src="data:image/jpeg;base64,<%= product.image2.toString('base64') %>"
-                                alt=""
-                              />
-                              <img
-                                class="w-1/2 h-fit border object-cover"
-                                src="data:image/jpeg;base64,<%= product.image3.toString('base64') %>"
-                                alt=""
-                              />
-                            </div>
-                            <div class="w-full flex flex-row gap-2">
-                              <img
-                                class="w-1/2 h-fit border object-cover"
-                                src="data:image/jpeg;base64,<%= product.image4.toString('base64') %>"
-                                alt=""
-                              />
-                              <img
-                                class="w-1/2 h-fit border object-cover"
-                                src="data:image/jpeg;base64,<%= product.image5.toString('base64') %>"
-                                alt=""
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <span
-                    class="absolute top-0 left-0 bg-red-500 text-white px-2 py-1 text-sm font-bold"
-                    >-<%= product.discount %>%</span
-                  >
-                </div>
-                <div class="w-full px-5 pt-1 pb-1 flex flex-col relative">
-                  <h3
-                    class="text-lg uppercase tracking-tighter"
-                    style="font-family: Aboreto"
-                  >
-                    <%= product.name %>
-                  </h3>
-                  <p
-                    class="italic text-black font-light text-base"
-                    style="font-family: Lato"
-                  >
-                    $<%= product.price %>
-                  </p>
-                  <!-- Edit Button for Admin (outside popup for quick access) -->
-                  <a
-                    class="absolute top-2 right-4 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition"
-                    href="/owners/products-page/edit/<%= product._id %>"
-                  >
-                    <i class="ri-edit-line mr-1"></i>
-                  </a>
-                  <form
-                    action="/owners/products-page/delete/<%= product._id %>"
-                    method="POST"
-                    onsubmit="return confirm('Are you sure you want to delete this product?');"
-                  >
-                    <button
-                      type="submit"
-                      class="bg-red-600 absolute top-11 right-4 uppercase px-4 py-1 text-white  rounded hover:bg-red-700 transition"
-                    >
-                      <i class="ri-delete-bin-line mr-1"></i>
-                    </button>
-                  </form>
-                </div>
-                <div
-                  class="w-full flex items-center justify-start gap-3 pb-2 pl-5"
-                >
-                  <div class="flex items-center justify-center gap-1">
-                    <% product.color.forEach(function(color) { %>
-                    <button
-                      class="w-3 h-2 bg-<%= color %>-500 cursor-pointer"
-                    ></button>
-                    <% }) %>
-                  </div>
-                  <div
-                    class="flex items-center justify-center gap-2 text-gray-600"
-                  >
-                    <% product.size.forEach(function(size) { %>
-                    <button class="border text-xs w-6 h-4 rounded">
-                      <%= size %>
-                    </button>
-                    <% }) %>
-                  </div>
-                </div>
-              </div>
-              <% }) %>
-
-              <!-- Add more cards as needed -->
-            </div>
-          </div>
-        </div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products - JacketAdmin</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: "Poppins"; overflow-x: hidden; }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body>
+  <div class="flex h-screen bg-gray-100">
+    <div class="w-76 bg-white h-screen shadow-lg p-6">
+      <h1 class="text-2xl font-bold text-gray-800">JacketDashboard</h1>
+      <nav class="mt-6">
+        <a href="/owners/products-page" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Products</a>
+        <a href="/owners/orders-page" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Orders</a>
+      </nav>
     </div>
-
-    <script>
-      function showPopup(productId) {
-        const popup = document.getElementById("popup-" + productId);
-        if (popup) {
-          popup.classList.remove("hidden");
-        }
-      }
-
-      function hidePopup(productId) {
-        const popup = document.getElementById("popup-" + productId);
-        if (popup) {
-          popup.classList.add("hidden");
-        }
-      }
-    </script>
-  </body>
+    <main class="flex-1 overflow-y-auto p-6">
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Products</h1>
+        <a class="flex flex-row gap-2 shadow bg-white h-fit px-8 py-3 rounded-xl text-black" href="/owners/products-page/product">
+          <i class="ri-add-line font-semibold"></i>
+          <span class="font-semibold">Add Product</span>
+        </a>
+      </div>
+      <div class="bg-white rounded-lg shadow p-6">
+        <table class="w-full">
+          <thead>
+            <tr class="text-left text-gray-500">
+              <th class="pb-4">Image</th>
+              <th class="pb-4">Name</th>
+              <th class="pb-4">Category</th>
+              <th class="pb-4">Material</th>
+              <th class="pb-4">Sizes</th>
+              <th class="pb-4">Colors</th>
+              <th class="pb-4">Price</th>
+              <th class="pb-4">Discount</th>
+              <th class="pb-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (products && products.length > 0) { %>
+              <% products.forEach(function(product, idx) { %>
+                <tr class="border-t">
+                  <td class="py-4">
+                    <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="" class="w-20 h-20 object-cover rounded" />
+                  </td>
+                  <td class="py-4 font-semibold"><%= product.name %></td>
+                  <td class="py-4"><%= product.category %></td>
+                  <td class="py-4"><%= product.material %></td>
+                  <td class="py-4">
+                    <% product.size.forEach(function(size, i) { %>
+                      <span class="inline-block border px-2 py-1 text-xs rounded mr-1"><%= size %></span>
+                    <% }) %>
+                  </td>
+                  <td class="py-4">
+                    <% product.color.forEach(function(color, i) { %>
+                      <span class="inline-block w-4 h-4 rounded-full mr-1" style="background-color:<%= color %>"></span>
+                    <% }) %>
+                  </td>
+                  <td class="py-4">$<%= product.price %></td>
+                  <td class="py-4">
+                    <% if (product.discount && product.discount > 0) { %>
+                      <span class="px-2 py-1 text-xs rounded bg-red-100 text-red-800">-<%= product.discount %>%</span>
+                    <% } else { %>
+                      <span class="text-gray-400">—</span>
+                    <% } %>
+                  </td>
+                  <td class="py-4">
+                    <a class="text-indigo-600 hover:text-indigo-800 mr-2" href="/owners/products-page/edit/<%= product._id %>">
+                      <i class="ri-edit-line"></i> Edit
+                    </a>
+                    <form action="/owners/products-page/delete/<%= product._id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                      <button type="submit" class="text-red-600 hover:text-red-800">
+                        <i class="ri-delete-bin-line"></i> Delete
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="9" class="py-8 text-center text-gray-400">No products found.</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
 </html>

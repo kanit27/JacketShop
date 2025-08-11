@@ -106,15 +106,17 @@
         </div>
         <div class="flex gap-8 items-center">
           <div>
-            <% if (user && user.wishlist && user.wishlist.length > 0) { %>
-            <a href="/wishlist"
-              ><i class="ri-heart-line text-xl cursor-pointer"></i
-            ></a>
-            <span><%= user.wishlist.length %></span>
+            <% if (user) { %>
+              <a href="/wishlist">
+                <i class="ri-heart-line text-xl cursor-pointer"></i>
+              </a>
+              <% if (user.wishlist && user.wishlist.length > 0) { %>
+                <span><%= user.wishlist.length %></span>
+              <% } %>
             <% } else { %>
-            <a href="/wishlist"
-              ><i class="ri-heart-line text-xl cursor-pointer"></i
-            ></a>
+              <a href="/users/login">
+                <i class="ri-heart-line text-xl cursor-pointer"></i>
+              </a>
             <% } %>
           </div>
 
@@ -577,11 +579,11 @@
                                   $<%= product.price %>
                                 </p>
                                 <div class="flex justify-end gap-2">
-                                  <a
-                                    class="bg-black uppercase px-24 py-2 text-white text-sm"
-                                    href="/bag/<%= product._id %>"
-                                    >Add to Bag</a
-                                  >
+                                  <% if (user) { %>
+                                    <a class="bg-black uppercase px-24 py-2 text-white text-sm" href="/bag/<%= product._id %>">Add to Bag</a>
+                                  <% } else { %>
+                                    <a class="bg-black uppercase px-24 py-2 text-white text-sm" href="/users/login">Add to Bag</a>
+                                  <% } %>
                                   <a
                                     class="bg-transparent uppercase border border-gray-300 px-24 py-2 text-black text-sm"
                                     href="#"

@@ -8,9 +8,7 @@ const Order = require("../models/order-model");
 const userModel = require("../models/user-model");
 
 // DASHBOARD
-router.get("/dashboard", (req, res) => {
-  res.render("admin/dashboard");
-});
+
 
 // PRODUCT LIST PAGE
 router.get("/products-page", async (req, res) => {

@@ -16,9 +16,9 @@ router.get("/", (req, res) => {
   res.render("index", { error, user: req.user || null });
 });
 
-router.get("/shop", isLoggedIn, async (req, res) => {
+router.get("/shop", async (req, res) => {
   const products = await productModel.find({}).lean();
-  const user = await userModel.findOne({ email: req.user.email }).lean();
+  const user = await userModel.findOne({}).lean();
   let success = req.flash("success");
   let error = req.flash("error");
   res.render("shop", { products , user, error, success });

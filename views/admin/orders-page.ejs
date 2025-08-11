@@ -10,13 +10,18 @@
     />
     <link href="https://unpkg.com/lucide-icons/dist/umd/lucide-icons.js" rel="stylesheet">
     <script src="https://unpkg.com/lucide-icons" defer></script>
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: "Poppins"; overflow-x: hidden; }
+    ::-webkit-scrollbar { display: none; }
+  </style>
 </head>
 <body>
     <div class="flex h-screen bg-gray-100">
-        <div class="w-64 bg-white h-screen shadow-lg p-6">
-            <h1 class="text-2xl font-bold text-gray-800">JacketAdmin</h1>
+        <div class="w-76 bg-white h-screen shadow-lg p-6">
+            <h1 class="text-2xl font-bold text-gray-800">JacketDashboard</h1>
             <nav class="mt-6">
-                <a href="/owners/dashboard" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Dashboard</a>
                 <a href="/owners/products-page" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Products</a>
                 <a href="/owners/orders-page" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Orders</a>
             </nav>
@@ -37,7 +42,7 @@
                     </thead>
                     <tbody>
                       <% if (orders && orders.length > 0) { %>
-                        <% orders.forEach(function(order, idx) { %>
+                        <% orders.slice().reverse().forEach(function(order, idx) { %>
                           <tr class="border-t">
                             <td class="py-4"><%= order._id %></td>
                             <td class="py-4">
