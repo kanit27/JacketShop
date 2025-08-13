@@ -4,6 +4,19 @@ Jacket Shop is a full-stack e-commerce web application for browsing, managing, a
 
 ---
 
+## 🚀 Live Demo & Login Guide
+
+**[Visit Live Site](https://jacketshop-nk61.onrender.com/)**
+
+### 🔑 Test Login Credentials
+- **Email**: `kanit@one.com`  
+- **Password**: `kanit123`  
+
+### 📂 Owner Dashboard
+- **Owner Dashboard URL**: [https://jacketshop-nk61.onrender.com/owners/products-page](https://jacketshop-nk61.onrender.com/owners/products-page)  
+
+---
+
 ## Features
 
 - **User Authentication**: Register, login, logout, and session management.
